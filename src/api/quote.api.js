@@ -8,12 +8,11 @@ const axios = require('axios');
 const Quote=require("../models/quote.model");
 
 // Route to Submit Quote
-router.post('/submit-quote', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { products, customerInfo } = req.body;
     const quote = new Quote({ products, customerInfo, status: 'submitted' });
     await quote.save();
-
     // Sending data to Salesforce CPQ
     const salesforceResponse = await axios.post('https://salesforce-api-url.com/quotes', {
       products,
